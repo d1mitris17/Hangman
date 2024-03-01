@@ -6,4 +6,5 @@ import javax.swing.JFrame;
 public class MainWindow extends JFrame {
 	HealthPanel hp = new HealthPanel();
 
+
 }
