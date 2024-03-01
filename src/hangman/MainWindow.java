@@ -4,7 +4,20 @@ package hangman;
 import javax.swing.JFrame;
 
 public class MainWindow extends JFrame {
-	HealthPanel hp = new HealthPanel();
-
+	private HealthPanel hp;
+	
+	public MainWindow(){
+		this(7);
+	}
+	
+	public MainWindow(int n){
+		hp = new HealthPanel(n);
+		this.setSize(600, 600);
+		this.add(hp);
+	}
+	
+	public int removeLife() {
+		return this.hp.removeLife();
+	}
 
 }
