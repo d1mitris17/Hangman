@@ -28,4 +28,5 @@ public class HealthPanel extends JPanel {
 		return 0;
 	}
 	
+	
 }
