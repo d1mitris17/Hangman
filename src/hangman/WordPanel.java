@@ -27,7 +27,7 @@ public class WordPanel extends JPanel {
 		this.setLayout(new GridLayout(1, this.unknownWord.length(), 10, 10));
 		
 		for(int i = 0; i < this.unknownWord.length(); i++) {
-			this.unknownWordLetters[i] = new JLabel("?");
+			this.unknownWordLetters[i] = new JLabel("_");
 			this.unknownWordLetters[i].setOpaque(true);
 			this.unknownWordLetters[i].setHorizontalAlignment(JLabel.CENTER);
 			this.add(this.unknownWordLetters[i]);
@@ -58,6 +58,14 @@ public class WordPanel extends JPanel {
 		}
 		else {
 			return false;
+		}
+	}
+	
+	public void revealWord() {
+		for(int i = 0; i < this.unknownWordLetters.length; i++) {
+			if (this.unknownWordLetters[i].getText().equals("_")) {
+				this.unknownWordLetters[i].setText(String.valueOf(unknownWord.charAt(i)));
+			}
 		}
 	}
 	

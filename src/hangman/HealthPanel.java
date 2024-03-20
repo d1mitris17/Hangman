@@ -25,13 +25,13 @@ public class HealthPanel extends JPanel {
 		}
 	}
 	
-	public int removeLife() {
+	public boolean removeLife() {
 		this.lives[this.incorrectGuesses].setBackground(Color.red);;
 		this.incorrectGuesses += 1;
 		if (this.incorrectGuesses == this.maxIncorrectGuesses)
-				return 100;
+				return false;
 		
-		return 0;
+		return true;
 	}
 
 	public int getIncorrectGuesses() {
