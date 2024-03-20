@@ -5,13 +5,16 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainWindow extends JFrame implements ActionListener{
+	private RandomWordGenerator wordGenerator;
 	private WelcomePanel welcomeMenu;
 	private HealthPanel hp;
 	private Container cpane;
+	private WordPanel guessWord;
 	// TODO Make a Panel with mystery word
 	// TODO Make Panel with letters to guess
 	
 	public MainWindow(){
+		wordGenerator = new RandomWordGenerator();
 		welcomeMenu = new WelcomePanel();
 		cpane = this.getContentPane();
 		
@@ -53,7 +56,9 @@ public class MainWindow extends JFrame implements ActionListener{
 			this.cpane.remove(welcomeMenu);
 			this.welcomeMenu.setVisible(false);
 			hp = new HealthPanel();
+			guessWord = new WordPanel(this.wordGenerator.generateWord());
 			this.cpane.add(hp);
+			this.cpane.add(guessWord);
 			this.setVisible(true);
 		}
 		
