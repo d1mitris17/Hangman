@@ -10,7 +10,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -23,16 +22,18 @@ public class WelcomePanel extends JPanel{
 	    private JFileChooser fileChooser;
 	    private JLabel maxLivesLabel; // Label for maximum lives
 	    private JTextArea maxLivesTextArea; // Text area for entering maximum lives
+	    private JLabel errorLabel;
 
 	    public WelcomePanel() {
 	        playBtn = new JButton("Play");
 	        welcomeMsg = new JLabel("Welcome");
 	        selectedFileLabel = new JLabel("Select File: ");
 	        chooseFileBtn = new JButton("Choose Word List");
-	        fileChooser = new JFileChooser("/Users/dimitrisdoukas/git/gui-coursework-dd-2040/all_words.txt");
+	        fileChooser = new JFileChooser("/Users/dimitrisdoukas/git/gui-coursework-dd-2040/all_words.txt/");
 	        fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
 	        maxLivesLabel = new JLabel("Enter maximum lives:");
 	        maxLivesTextArea = new JTextArea("7", 1, 5); // Default value set to 7
+	        errorLabel = new JLabel();
 
 	        this.setLayout(new GridBagLayout());
 	        GridBagConstraints gbc = new GridBagConstraints();
@@ -56,6 +57,9 @@ public class WelcomePanel extends JPanel{
 	        
 	        gbc.gridx++;
 	        this.add(playBtn, gbc);
+	        
+	        gbc.gridy++;
+	        this.add(errorLabel, gbc);
 	        
 	        chooseFileBtn.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
@@ -92,8 +96,12 @@ public class WelcomePanel extends JPanel{
     	return this.maxLivesTextArea.getText();
     }
     
-    public String getFileChosen() {
+    public String getFileChosen() { 
     	return fileChooser.getSelectedFile().getAbsolutePath();
+    }
+    
+    public void setError(String msg) {
+    	this.errorLabel.setText(msg);
     }
     
 }

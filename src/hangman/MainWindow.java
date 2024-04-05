@@ -55,18 +55,25 @@ public class MainWindow extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         switch(status) {
             case GAMESETUP:
+            	this.welcomeMenu.setError("");
             	try {
             		this.maxIncorrectGuesses  = Integer.parseInt(this.welcomeMenu.getMaxLives());
             		if(this.maxIncorrectGuesses > 15) {
-            			System.out.println("Number entered is too high");
+                    	this.welcomeMenu.setError("ERROR: Number entered is too high");
             			break;
             		}
 				} catch (Exception e1) {
-					System.out.println("Non-numeric value entered");
+                	this.welcomeMenu.setError("ERROR: Non-numeric value entered");
 					break;
 				}
             	
-            	this.wordGenerator = new RandomWordGenerator(this.welcomeMenu.getFileChosen());
+            
+			try {
+				this.wordGenerator = new RandomWordGenerator(this.welcomeMenu.getFileChosen());
+			} catch (NullPointerException e1) {
+            	this.welcomeMenu.setError("ERROR: File has not been chosen");
+				break;
+			}
             	
             	// Remove welcome menu panel and set its visibility to false
                 this.cpane.remove(welcomeMenu);
