@@ -109,7 +109,7 @@ public class MainWindow extends JFrame implements ActionListener{
                         // Hide buttons
                         this.guessButtons.setVisible(false);
                         this.cpane.remove(guessButtons);
-                        // Initialize restart panel for game won
+                        // Initialise restart panel for game won
                         this.restartGame = new RestartPanel("You Win!");
                         // Add action listeners to restart and exit buttons
                         this.restartGame.getRestartGame().addActionListener(this);

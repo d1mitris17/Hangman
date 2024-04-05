@@ -1,64 +1,43 @@
-/**
- * The RandomWordGenerator class generates a random word for the Hangman game.
- * It reads a list of words from a file and selects one at random.
- */
 package hangman;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomWordGenerator {
-    // Instance variables
-    private String currentWord;
-    private ArrayList<String> wordSelection;
-    private Random rand;
-    private BufferedReader br;
-    
-    // Constructor with specified filename
-    public RandomWordGenerator(String filename) {
-        // Initialize random number generator and word selection list
-        this.rand = new Random();
-        this.wordSelection = new ArrayList<String>(); 
-        try { 
-            // Read words from file
-            this.br = new BufferedReader(new FileReader(filename));
-            // Read first word
-            this.currentWord = br.readLine();
-        } catch (FileNotFoundException e) {
-            // Error handling if file not found
-            System.out.println("Failed to locate resource");
-            System.exit(0);
-        } catch (IOException e) {
-            // Error handling for IO exception
-            System.out.println("Resource failed to load");
-            System.exit(0);
-        }
-    }
-    
-    // Constructor with default filename
-    public RandomWordGenerator() {
-        this("all_words.txt");
-    }
+ private ArrayList<String> wordSelection;
+ private Random rand;
 
-    // Method to generate a random word
-    public String generateWord() {
-        // Read words from file until end
-        while(this.currentWord != null) {
-            // Add word to selection list
-            this.wordSelection.add(currentWord);
-            try {
-                // Read next word
-                this.currentWord = br.readLine();
-            } catch (IOException e) {
-                // Error handling for IO exception
-                System.out.println("Resource error");
-                System.exit(0);
-            }
-        }
-        
-        // Return a random word from the selection list
-        return this.wordSelection.get(rand.nextInt(this.wordSelection.size()));
-    }
+ public RandomWordGenerator(String filename) {
+     this.wordSelection = new ArrayList<String>(); // Initialize ArrayList
+     this.rand = new Random(); // Initialize Random object
+     loadWordsFromFile(filename); // Load words from file
+ }
+ 
+ public RandomWordGenerator() {
+	 this("all_words.txt");
+ }
 
+ // Method to load words from a file
+ private void loadWordsFromFile(String filename) {
+     try (BufferedReader br = new BufferedReader(new FileReader(filename))) { // Try to open and read the file
+         String line;
+         while ((line = br.readLine()) != null) { // Read each line from the file
+             wordSelection.add(line.trim()); // Add the trimmed line to the word selection list
+         }
+     } catch (IOException e) { // Catch any IO exceptions
+         System.err.println("Error reading file: " + e.getMessage()); // Print error message
+     }
+ }
+
+ // Method to generate a random word from the loaded words
+ public String generateWord() {
+     if (wordSelection.isEmpty()) { // Check if the word selection list is empty
+         System.err.println("No words loaded."); // Print error message
+         System.exit(0); // exit program
+     }
+     return wordSelection.get(rand.nextInt(wordSelection.size())); // Return a random word from the list
+ }
 }
