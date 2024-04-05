@@ -26,13 +26,12 @@ public class MainWindow extends JFrame implements ActionListener{
     // Constructor to initialise the MainWindow
     public MainWindow(){
         // Initialise instance variables
-        this.wordGenerator = new RandomWordGenerator();
         this.welcomeMenu = new WelcomePanel();
         this.cpane = this.getContentPane();
         this.status = GAMESETUP;
         
         // Set Size and Layout of the frame
-        this.setSize(600, 600);
+        this.setSize(1920, 1080);
         this.cpane.setLayout(new GridLayout(3, 1));
         
         // Add window listener to terminate execution when window is closed
@@ -46,7 +45,7 @@ public class MainWindow extends JFrame implements ActionListener{
         this.welcomeMenu.getPlayBtn().addActionListener(this);
         
         // Add welcome menu panel to the container
-        this.cpane.add(welcomeMenu, BorderLayout.CENTER);
+        this.cpane.add(welcomeMenu);
         
         // Set visibility of the frame
         this.setVisible(true);
@@ -66,7 +65,10 @@ public class MainWindow extends JFrame implements ActionListener{
 					System.out.println("Non-numeric value entered");
 					break;
 				}
-                // Remove welcome menu panel and set its visibility to false
+            	
+            	this.wordGenerator = new RandomWordGenerator(this.welcomeMenu.getFileChosen());
+            	
+            	// Remove welcome menu panel and set its visibility to false
                 this.cpane.remove(welcomeMenu);
                 this.welcomeMenu.setVisible(false);
                 // Initialise health panel, word panel, and button panel
