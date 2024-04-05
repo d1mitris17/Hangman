@@ -10,19 +10,22 @@ import javax.swing.*;
 public class WelcomePanel extends JPanel{
     // Instance variables
     private JButton playBtn;
+    private JTextField maxLives;
     private JLabel welcomeMsg;
     
     // Constructor
     public WelcomePanel() {
         // Initialise button and label
-        playBtn = new JButton("Play");
-        welcomeMsg = new JLabel("Welcome");
+        this.playBtn = new JButton("Play");
+        this.welcomeMsg = new JLabel("Welcome");
+        this.maxLives = new JTextField("7");
         
         // Set layout to a 2-row grid
-        this.setLayout(new GridLayout(2, 1));
+        this.setLayout(new GridLayout(3, 1));
         
         // Add components to panel
         this.add(welcomeMsg);
+        this.add(maxLives);
         this.add(playBtn);
     }
 
@@ -44,5 +47,9 @@ public class WelcomePanel extends JPanel{
     // Setter method for welcomeMsg label
     public void setWelcomeMsg(JLabel welcomeMsg) {
         this.welcomeMsg = welcomeMsg;
+    }
+    
+    public String getMaxLives() {
+    	return this.maxLives.getText();
     }
 }

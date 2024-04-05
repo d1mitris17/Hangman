@@ -1,6 +1,6 @@
 /**
  * The MainWindow class represents the main frame of the Hangman game.
- * It manages the game setup, gameplay, and end game states.
+ * It manages the game setup, game-play, and end game states.
  */
 package hangman;
 
@@ -14,7 +14,7 @@ public class MainWindow extends JFrame implements ActionListener{
                             GAMEPLAY = 1, 
                             GAMEEND = 2;
     // Instance variables
-    private int status;
+    private int status, maxIncorrectGuesses;
     private RandomWordGenerator wordGenerator;
     private WelcomePanel welcomeMenu;
     private HealthPanel hp;
@@ -23,9 +23,9 @@ public class MainWindow extends JFrame implements ActionListener{
     private ButtonPanel guessButtons;
     private RestartPanel restartGame;
     
-    // Constructor to initialize the MainWindow
+    // Constructor to initialise the MainWindow
     public MainWindow(){
-        // Initialize instance variables
+        // Initialise instance variables
         this.wordGenerator = new RandomWordGenerator();
         this.welcomeMenu = new WelcomePanel();
         this.cpane = this.getContentPane();
@@ -56,11 +56,21 @@ public class MainWindow extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         switch(status) {
             case GAMESETUP:
+            	try {
+            		this.maxIncorrectGuesses  = Integer.parseInt(this.welcomeMenu.getMaxLives());
+            		if(this.maxIncorrectGuesses > 15) {
+            			System.out.println("Number entered is too high");
+            			break;
+            		}
+				} catch (Exception e1) {
+					System.out.println("Non-numeric value entered");
+					break;
+				}
                 // Remove welcome menu panel and set its visibility to false
                 this.cpane.remove(welcomeMenu);
                 this.welcomeMenu.setVisible(false);
-                // Initialize health panel, word panel, and button panel
-                hp = new HealthPanel();
+                // Initialise health panel, word panel, and button panel
+                hp = new HealthPanel(this.maxIncorrectGuesses);
                 guessWord = new WordPanel(this.wordGenerator.generateWord());
                 guessButtons = new ButtonPanel();
                 // Add action listeners to each button in the button panel
